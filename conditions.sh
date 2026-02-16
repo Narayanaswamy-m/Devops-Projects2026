@@ -5,10 +5,18 @@ echo "please run this script with root access"
 exit 1 
 fi 
 # installing ngnix 
-dnf install ngnix
+dnf install nginx
 if [ $? -ne 0 ]; then 
-echo "ngnix installation status failure ....."
+echo "nginx installation status failure ....."
 exit 1 
 else 
-echo "ngnix installation status success...."
+echo "nginx installation status success...."
+fi 
+# installing mysql 
+dnf install mysql -y 
+if [ $? -ne 0 ]; then 
+echo "mysql installation status failure ....."
+exit 1 
+else 
+echo "mysql installation status success...."
 fi 
