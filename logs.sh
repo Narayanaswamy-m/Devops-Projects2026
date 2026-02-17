@@ -1,7 +1,7 @@
 #!/bin/bash
 userid=$(id -u)
 Logs_folder="var/log/Devops-Projects2026"
-Logs_filename="var/log/Devops-Projects2026/0.log"
+Logs_filename="var/log/Devops-Projects2026/$0.log"
 if [ $userid -ne 0 ]; then 
 echo "please run this script with root access"
 exit 1 
