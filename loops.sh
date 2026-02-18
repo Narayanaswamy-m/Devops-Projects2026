@@ -19,6 +19,13 @@ fi
 
 for package in $@ 
 do 
+dnf list installed $package &>>$LOGS_FILE
+if [ $? -ne 0]; then 
+echo " $package is not installed please install it" 
 dnf install $package -y &>> $Logs_filename  
-validate $?  "$package Installing  ...." 
+validate $?  "$package Installing  ...."
+else 
+echo " $package is  installed please skip it"
+exit 1
+fi  
 done 
