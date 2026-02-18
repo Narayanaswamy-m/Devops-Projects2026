@@ -1,6 +1,6 @@
 #!/bin/bash
-source_dir="var/Devops-Projects2026"
-Backup_dir="etc"
+source_dir="/home/ec2-user/Devops-Projects2026/var"
+Backup_dir="/home/ec2-user/Devops-Projects2026/etc"
 Date=$(date +%F_%H-%M-%S)
 
 mkdir -p $Backup_dir
