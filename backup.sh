@@ -1,5 +1,5 @@
 #!/bin/bash
-source_dir="Devops-Projects2026/var"
+source_dir="var/Devops-Projects2026"
 Backup_dir="etc"
 Date=$(date +%F_%H-%M-%S)
 
