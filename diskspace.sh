@@ -1,10 +1,14 @@
 #!/bin/bash
-set -e 
-trap 'echo "there is an error $LINENO, COmmand:$BASH_COMMAND"' ERR
-Diskuseage=$(df -hT | awk 'NR==1 {print $1,$5}')
+set -e
+trap 'echo "Error at line $LINENO: Command $BASH_COMMAND failed"' ERR
+
 Thresholdvalue=80
-if [ "$Diskuseage" -gt "$Thresholdvalue" ]; then 
-echo " Diskuseage $Diskuseage is exceeding $Thresholdvalue it is almost full"
-else 
-echo "Diskuseage value is not full"
-fi 
+
+# Get disk usage percentage of the first filesystem (root)
+Diskuseage=$(df -hT | awk 'NR==2 {print $6}' | sed 's/%//')
+
+if [ "$Diskuseage" -ge "$Thresholdvalue" ]; then
+  echo "Disk usage $Diskuseage% is exceeding $Thresholdvalue%, it is almost full"
+else
+  echo "Disk usage value is not full ($Diskuseage%)"
+fi
