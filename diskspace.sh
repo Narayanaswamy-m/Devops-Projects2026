@@ -1,14 +1,29 @@
 #!/bin/bash
-set -e
-trap 'echo "Error at line $LINENO: Command $BASH_COMMAND failed"' ERR
 
-Thresholdvalue=80
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+MESSAGE=""
+IP_ADDRESS=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
 
-# Get disk usage percentage of the first filesystem (root)
-Diskuseage=$(df -hT | awk 'NR==2 {print $6}' | sed 's/%//')
+log(){
+    echo -e "$(date "+%Y-%m-%d %H:%M:%S") | $1"
+}
 
-if [ "$Diskuseage" -ge "$Thresholdvalue" ]; then
-  echo "Disk usage $Diskuseage% is exceeding $Thresholdvalue%, it is almost full"
-else
-  echo "Disk usage value is not full ($Diskuseage%)"
-fi
+DISK_USAGE=$(df -hT | grep -v Filesystem)
+USAGE_THRESHOLD=3
+
+while IFS= read -r line
+do
+    USAGE=$(echo $line | awk '{print $6}' | cut -d "%" -f1)
+    PARTITION=$(echo $line | awk '{print $7}')
+
+    if [ "$USAGE" -ge "$USAGE_THRESHOLD" ]; then
+        MESSAGE+="High Disk usage on $PARTITION: $USAGE% <br>"
+    fi
+done <<< $DISK_USAGE
+
+echo -e "$MESSAGE"
+
+sh mail.sh "info@joindevops.com" "High Disk Usage Alert on $IP_ADDRESS" "$MESSAGE" "HIGH_DISK_USAGE" "$IP_ADDRESS" "DevOps Team"
