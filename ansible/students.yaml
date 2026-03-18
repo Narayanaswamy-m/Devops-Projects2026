@@ -1,0 +1,7 @@
+- name: "swamy"
+  DOB:  "16-07-1998"
+  city: "Hyderabad"
+  mobilenumber: 1234567788
+  address:
+  - flatno: "403 sai residency" 
+  
