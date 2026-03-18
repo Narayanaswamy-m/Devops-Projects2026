@@ -1,0 +1,8 @@
+- name: install and run ngnix
+  hosts: web
+  become: yes
+  tasks:
+  - name: install ngnix
+    ansible.builtin.package:
+      name: ngnix
+      state: present
