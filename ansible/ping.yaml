@@ -2,6 +2,6 @@
   hosts: Local 
   tasks:
   - name: ping the web server
-    ansible.built.in.ping :   
+    ansible.builtin.ping :   
 
  
