@@ -8,4 +8,4 @@
     vars:
       COURSE: Ansible 
     ansible.builtin.debug:
-      msg: "course is: {{COURSE}} trainer is: {{TRAINER}}"  
+      msg: "Course is: {{ COURSE }}, Trainer is: {{ TRAINER }}"
