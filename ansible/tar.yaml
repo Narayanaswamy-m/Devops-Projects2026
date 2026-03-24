@@ -1,4 +1,4 @@
-- name: tasks level Variables
+- name: inventory Variables
   hosts: local
   connection: local
   
