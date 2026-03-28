@@ -1,0 +1,12 @@
+- name: demo on conditions
+  hosts: local
+  connection: local 
+  vars:
+  - IS_LIVE: yes 
+  tasks:
+  - name: check live or not 
+    ansible.builtin.debug:  
+      msg: "yes it is live "
+  when: IS_LIVE    
+ 
+   
