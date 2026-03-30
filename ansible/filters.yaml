@@ -29,4 +29,7 @@
       msg: "Hi Sivakumar, {{ GREETING | default('Good Morning') }}" 
   - name: convert string to list 
     ansible.builtin.debug:
-      msg: "{{ topics | split (',')}}"   
+      msg: "{{ topics | split (',')}}"
+  - name: convert map to list 
+    ansible.builtin.debug:
+      msg:"{{ tagsMap | dict2items }}"       
