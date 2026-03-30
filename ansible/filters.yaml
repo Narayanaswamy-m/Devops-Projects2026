@@ -27,3 +27,6 @@
   - name: greeting
     ansible.builtin.debug:
       msg: "Hi Sivakumar, {{ GREETING | default('Good Morning') }}" 
+  - name: convert string to list 
+    ansible.builtin.debug:
+      msg: "{{ topics | split (',')}}"   
