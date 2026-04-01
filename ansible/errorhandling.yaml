@@ -10,6 +10,6 @@
   - name: print user details 
     ansible.builtin.debug:
       msg: "{{ user_ouput }}"  
-  - name: create user swamy
+  - name: create user 
     ansible.builtin.command: useradd swamy
     when: user_ouput.rc != 0
