@@ -4,4 +4,4 @@
   tasks:
   - name: user creation
     ansible.builtin.user:
-    - name: rajesh  
+      name: rajesh  
