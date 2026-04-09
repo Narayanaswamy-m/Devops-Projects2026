@@ -11,11 +11,11 @@
     ansible.builtin.dnf:
       name: rabbitmq-server
       state: present 
-  - name: Start RabbitMQ Service
+  - name: Start RabbitMQ 
     ansible.builtin.service:
       name: rabbitmq-server
       state: restarted
-    enabled: yes 
+      enabled: yes 
   - name: create rabbitmq user 
     community.rabbitmq.rabbitmq_user:
       user: roboshop
