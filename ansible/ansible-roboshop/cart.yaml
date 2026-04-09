@@ -1,4 +1,4 @@
-- name: cart configure
+- name: cart configure 
   become: yes
   hosts: cart 
   tasks:
