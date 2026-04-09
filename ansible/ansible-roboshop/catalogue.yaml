@@ -65,6 +65,7 @@
   - name: load the products
     ansible.builtin.shell: mongosh --host "{{ MONGODB_HOST }}" </app/db/master-data.js
     when: catalogue_output.stdout  | int < 0
+    
   - name: Load the daemon service
     ansible.builtin.systemd_service:
     daemon_reload: true  
