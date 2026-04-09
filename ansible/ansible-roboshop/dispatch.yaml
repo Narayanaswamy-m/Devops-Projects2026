@@ -1,0 +1,62 @@
+- name: configure dispatch 
+  hosts: dispatch
+  becpme: yes 
+  tasks:
+  - name: Install GoLang
+    ansible.builtin.dnf:
+      name: GoLang
+      state: present 
+  - name: create roboshop user 
+    ansible.builtin.user:
+      name: roboshop
+      system: true
+      home: /app
+      shell: /sbin/nologin 
+      comment: "Roboshop system user"
+  - name: delete app directory
+    ansible.builtin.file:
+      path: /app
+      state: absent
+
+  - name: create app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+  - name: download the applicationcode
+    ansible.builtin.get_url: 
+      url:  https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip 
+      dest: /tmp/dispatch.zip
+  - name: unarchieve applicationcode
+    ansible.builtin.unarchive:
+      src: /tmp/dispatch.zip
+      dest: /app 
+      remote_src: yes 
+  - name: download the dependencies & build the software
+    ansible.builtin.command: go mod init dispatch
+    args:
+      chdir: /app
+    failed_when: false
+
+  - name: Download Go dependencies
+    ansible.builtin.command: go get
+    args:
+      chdir: /app
+
+  - name: Build Go application
+    ansible.builtin.command: go build
+    args:
+      chdir: /app
+  - name: copy payment service 
+    ansible.builtin.template:
+      src: /dispatch.service
+      dest: /etc/systemd/system/dispatch.service
+  - name: daemon reload
+    ansible.builtin.systemd_service:
+      daemon_reload: true    
+  - name: restart dispatch service 
+    ansible.builtin.service:
+      name: dispatch
+      state: restarted 
+      enabled: yes          
+   
+                 
